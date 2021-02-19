@@ -1,0 +1,42 @@
+﻿ @{
+    ViewData["Title"] = "Home Page";
+}
+
+<header class="text-center">
+    <h1>Andrew's Book Store - Your Best Source for Books!</h1>
+</header>
+
+
+<div class="text-center" ><b>Here's Some Awesome Books!</b><br /></div>
+<br />
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table class="table table-bordered table-responsive table-hover table-dark table-striped">
+            <caption class="text-center">Professor Hiltons Favorite Books</caption>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title </th>
+                    <th>Author </th>
+                    <th>Publisher </th>
+                    <th>ISBN</th>
+                    <th>Classification/Category</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td>@d.Title</td>
+                        <td>@d.Author</td>
+                        <td>@d.Publisher</td>
+                        <td>@d.ISBN</td>
+                        <td>@d.Category</td>
+                        <td>$@d.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
