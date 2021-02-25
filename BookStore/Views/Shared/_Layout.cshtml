@@ -8,10 +8,23 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body style="background-color: coral;">
-    <div>
-        <main>
-            @RenderBody()
-        </main>
+    <div class="bg-dark text-white p-1">
+        <span class="navbar-brand ml-5">Andrews Books Store - Your Best Source for Books!</span>
     </div>
+    <div class="row m-1 p-1">
+        <div id="blah" class="col-3">
+            <h1>Andrews Books You Need to Check Out</h1>
+        </div>
+        <div class="col-9">
+            @RenderBody()
+        </div>
+    </div>
+
+    @*What it used to be.*@
+    @*<div>
+            <main>
+                @RenderBody()
+            </main>
+        </div>*@
 </body>
 </html>
