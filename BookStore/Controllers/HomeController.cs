@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BookStore.Models;
+using BookStore.Models.ViewModels;
 
 namespace BookStore.Controllers
 {
@@ -15,15 +16,36 @@ namespace BookStore.Controllers
 
         private IBookRepository _repository;
 
+        //make it so only x number of books appear on each page
+        public int PageSize = 5;
+
         public HomeController(ILogger<HomeController> logger, IBookRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(_repository.Books);
+            //cycle through the books for each page. it only passes a couple books to the html render at a time
+            return View(new BookListViewModel
+                {
+                    Books = _repository.Books
+                        .OrderBy(b => b.BookId)
+                        .Skip((page - 1) * PageSize)
+                        .Take(PageSize)
+                    ,
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = PageSize,
+                        TotalNumItems = _repository.Books.Count()
+                    }
+            });
+
+
+            //What it used to be
+            //return View(_repository.Books);
         }
 
         public IActionResult Privacy()

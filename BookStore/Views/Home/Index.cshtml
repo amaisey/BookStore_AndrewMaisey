@@ -1,42 +1,69 @@
-﻿ @{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
+@model BookListViewModel
+
 <header class="text-center">
-    <h1>Andrew's Book Store - Your Best Source for Books!</h1>
+    <h1>The List</h1>
 </header>
-
-
-<div class="text-center" ><b>Here's Some Awesome Books!</b><br /></div>
 <br />
-<div class="row justify-content-center">
-    <div class="col-auto">
-        <table class="table table-bordered table-responsive table-hover table-dark table-striped">
-            <caption class="text-center">Professor Hiltons Favorite Books</caption>
-            <thead class="thead-dark">
-                <tr>
-                    <th>Title </th>
-                    <th>Author </th>
-                    <th>Publisher </th>
-                    <th>ISBN</th>
-                    <th>Classification/Category</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
+<br />
 
-            <tbody>
-                @foreach (var d in Model)
-                {
-                    <tr>
-                        <td>@d.Title</td>
-                        <td>@d.Author</td>
-                        <td>@d.Publisher</td>
-                        <td>@d.ISBN</td>
-                        <td>@d.Category</td>
-                        <td>$@d.Price</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+@*show the books!*@
+@foreach (var b in Model.Books)
+{
+<div class="card card-outline-primary m-1 p-1 text-center w-75 mx-auto">
+    <h3 class="card-header">@b.Title</h3>
+    <div class="card-body">
+        <h4 class="card-subtitle mb-2 text-muted">Author: @b.Author</h4>
+        <p>Publisher: @b.Publisher</p>
+        <p>ISBN: @b.ISBN</p>
+        <p>Category: @b.Category</p>
+        <p>Price: $@b.Price</p>
+        <p>NumPages: @b.NumPages</p>
     </div>
 </div>
+}
+
+@*show page references*@
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right m-1"></div>
+
+@*The following is the table i created previously for assignment5*@
+@*<div class="text-center" ><b>Here's Some Awesome Books on multiple pages!</b><br /></div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table class="table table-bordered table-responsive table-hover table-dark table-striped">
+                <caption class="text-center">Professor Hiltons Favorite Books</caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title </th>
+                        <th>Author </th>
+                        <th>Publisher </th>
+                        <th>ISBN</th>
+                        <th>Classification/Category</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        <tr>
+                            <td>@d.Title</td>
+                            <td>@d.Author</td>
+                            <td>@d.Publisher</td>
+                            <td>@d.ISBN</td>
+                            <td>@d.Category</td>
+                            <td>$@d.Price</td>
+                            <td>$@d.NumPages</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>*@
