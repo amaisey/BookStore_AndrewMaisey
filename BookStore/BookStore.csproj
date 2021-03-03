@@ -17,4 +17,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\NavigationMenu\" />
+    <Folder Include="Models\ViewModels\" />
+  </ItemGroup>
 </Project>

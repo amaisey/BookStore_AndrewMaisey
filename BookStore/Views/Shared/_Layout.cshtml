@@ -8,10 +8,24 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body style="background-color: coral;">
-    <div>
-        <main>
-            @RenderBody()
-        </main>
+    <div class="bg-dark text-white p-1">
+        <span class="navbar-brand ml-5">Andrews Book Store</span>
     </div>
+    <div class="row m-1 p-1">
+        <div id="blah" class="col-3">
+            <h1>Must Reads</h1>
+            <vc:navigation-menu />
+        </div>
+        <div class="col-9">
+            @RenderBody()
+        </div>
+    </div>
+
+    @*Assignment 6 material*@
+    @*<div>
+            <main>
+                @RenderBody()
+            </main>
+        </div>*@
 </body>
 </html>
