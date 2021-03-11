@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace BookStore
 {
@@ -29,10 +30,21 @@ namespace BookStore
 
             services.AddDbContext<BookDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:BookStoreConnection"]);
+                //this is what calls sql lite. changed from sql.
+                options.UseSqlite(Configuration["ConnectionStrings:BookStoreConnection"]);
             });
 
             services.AddScoped<IBookRepository, EFBoookRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
+
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +63,8 @@ namespace BookStore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -59,24 +73,24 @@ namespace BookStore
             {
 
                 endpoints.MapControllerRoute("categorypage",
-                    "{category}/{page:int}",
+                    "{category}/{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute("page",
-                    "{page:int}",
+                    "{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute("category",
                     "{category}",
-                    new { Controller = "Home", action = "Index", page = 1 });
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
 
-                //endpoints.MapControllerRoute(
-                //    "pagination",
-                //    "P{page}",
-                //    new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("pagination",
+                    "P{pageNum}",
+                    new { Controller = "Home", action = "Index" });
 
                 endpoints.MapDefaultControllerRoute();
 
+                endpoints.MapRazorPages();
 
                 //this is what it looked like before adding dynamic page changing when viewing books
                 //endpoints.MapControllerRoute(
